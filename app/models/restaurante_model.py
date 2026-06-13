@@ -1,8 +1,7 @@
-from datetime import datetime, UTC
+from datetime import datetime
 from zoneinfo import ZoneInfo
-from sqlalchemy import Column, Integer, String, DateTime
-from sqlalchemy.orm import relationship
-from app.banco_de_dados import Base
+from sqlalchemy import Column, Integer, String
+from app.banco_de_dados import base
 
 def agora_iso():
     return (
@@ -11,7 +10,7 @@ def agora_iso():
         .strftime("%Y-%m-%dT%H:%M:%S")
     )
 
-class Restaurante(Base):
+class Restaurante(base):
     __tablename__ = "restaurantes"
     
     id = Column(Integer, primary_key=True, index=True)

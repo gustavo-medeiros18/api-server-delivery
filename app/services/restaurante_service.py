@@ -1,9 +1,8 @@
 from sqlalchemy.orm import Session
-from fastapi import HTTPException
 
 from app.models.restaurante_model import Restaurante
-from app.schemas.restaurante_schema import RestauranteAlteracao, RestauranteCriacao
-from app.dao.restaurante_dao import buscar_por_id, atualizar, criar, listar, deletar
+from app.schemas.restaurante_schema import RestauranteCriacao
+from app.dao.restaurante_dao import criar
 
 def criar_restaurante(
     banco: Session,
@@ -18,5 +17,5 @@ def criar_restaurante(
         categoria=restaurante.categoria
     )
 
-    resturante_criado = criar(banco, novo_restaurante)
-    return resturante_criado
+    restaurante_criado = criar(banco, novo_restaurante)
+    return restaurante_criado

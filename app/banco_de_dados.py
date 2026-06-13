@@ -11,7 +11,7 @@ SessaoLocal = sessionmaker(
     bind=engine
 )
 
-Base = declarative_base()
+base = declarative_base()
 
 def obter_banco():
     banco = SessaoLocal()
