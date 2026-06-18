@@ -1,12 +1,6 @@
 from fastapi import FastAPI
 
-from app.banco_de_dados import (
-    base,
-    engine
-)
 from app.routes.restaurante_routes import router_restaurantes
-
-base.metadata.create_all(bind=engine)
 
 # API Server Delivery
 api = FastAPI(title="API Server Delivery")
