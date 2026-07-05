@@ -1,0 +1,2 @@
+Uma classe é define características e comportamentos padrões para
+algo.
