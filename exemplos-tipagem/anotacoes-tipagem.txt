@@ -1,0 +1,20 @@
+Tipagem é especificar a quais tipos de dados determinados valores devem
+pertencer, em um dado cenário.
+
+Um desses cenários é quando precisamos que os parâmetros de uma função
+recebam valores pertencendo a tipos específicos.
+
+Para realizar a tipagem dos parâmetros de uma função, deve ser utilizada
+a seguinte sintaxe:
+
+def nome_funcao(nome_parametro_1: tipo_desejado, nome_parametro_2: tipo_desejado):
+    comando_1
+    comando_2
+    comando_3
+
+Se os parâmetros de uma função passaram pela tipagem, isto é, estão com tipos
+de dados especificados, diz-se que esses parâmetros estão "tipados".
+
+Se a verificação de tipagem do editor de código estiver habilitada, e ocorrer
+uma tentativa de chamar uma função possuindo parâmetros tipados, passando valores
+diferentes dos tipos de dados especificados, o editor sinalizará um erro.

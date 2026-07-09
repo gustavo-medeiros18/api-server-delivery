@@ -1,0 +1,13 @@
+Uma classe é um modelo que define características, comportamentos
+e estruturas padrões para algo no código.
+
+Como os dados a serem recebidos no corpo de uma requisição representam
+algo que seguirá uma estrutura padronizada, uma classe pode ser utilizada
+para definir o schema (modelo) de dados que virão no corpo de uma requisição.
+
+Para definir uma classe, deve ser utilizada a seguinte sintaxe:
+
+class NomeClasse(ClaseBase):
+    campo_1
+    campo_2
+    campo_3
