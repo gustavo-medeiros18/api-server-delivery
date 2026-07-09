@@ -1,11 +1,23 @@
-from fastapi import APIRouter
-from app.schemas.restaurante_schema import RestauranteCriacaoSchema
+from fastapi import APIRouter, status, Depends
+from sqlalchemy.orm import Session
+from app.banco_de_dados import obter_banco
+from app.schemas.restaurante_schema import RestauranteCriacaoSchema, RestauranteResposta
+from app.services import restaurante_service
 
 router = APIRouter()
 
-@router.post("/restaurantes")
-def criar(dados_entrada_restaurante: RestauranteCriacaoSchema):
-    print(f"Dados recebidos no corpo da requisição: {dados_entrada_restaurante}")
+@router.post(
+    "/restaurantes",
+    response_model=RestauranteResposta,
+    status_code=status.HTTP_201_CREATED
+)
+def criar(
+    restaurante: RestauranteCriacaoSchema,
+    banco: Session = Depends(obter_banco)
+):
+    restaurante_criado = restaurante_service.criar(
+        banco,
+        restaurante
+    )
 
-    resposta = "Essa é a rota para criar um novo restaurante"
-    return resposta
+    return restaurante_criado
