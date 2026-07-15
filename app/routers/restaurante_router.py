@@ -12,12 +12,15 @@ router = APIRouter()
     status_code=status.HTTP_201_CREATED
 )
 def criar(
-    restaurante: RestauranteCriacaoSchema,
-    banco: Session = Depends(obter_banco)
-):
-    restaurante_criado = restaurante_service.criar(
-        banco,
-        restaurante
-    )
+    restaurante: RestauranteCriacaoSchema
+): 
+    try:
+        banco = obter_banco()
+        restaurante_criado = restaurante_service.criar(
+            banco,
+            restaurante
+        )
+    finally:
+        banco.close()
 
     return restaurante_criado
