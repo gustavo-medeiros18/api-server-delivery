@@ -1,0 +1,26 @@
+primary_key: Recebe um valor booleano. Usado para controlar
+se o atributo em questão dentro da classe representará uma
+coluna na tabela que deva se comportar como uma chave
+primária. Isto é, ter o valor que irá preenchê-la como uma
+identificação (no caso, um número de identificação) para
+cada recurso (restaurante, no exemplo) que será cadastrado.
+Os valores não irão se repetir. Não haveremos, por exemplo,
+mais de um restaurante tendo o mesmo número de identificação
+(id), já que a coluna será uma chave primária.
+
+index: Recebe um valor booleano. Usado para controlar se o
+atributo em questão dentro da classe representará uma coluna na
+tabela que deva ser utilizada para formar um índice. Um índice
+é uma estrutura que o banco de dados usa para facilitar a busca
+de recursos (no caso, restaurantes dentro da tabela). Mapeando
+a qual valor da coluna que o índice se refere, está associado
+cada restaurante cadastrado. No exemplo, o banco de dados
+criará um índice, mapeando a qual número de identificação (id)
+está associado cada restaurante cadastrado. Facilita buscas
+de restaurantes pelo id.
+
+nullable: Recebe um valor booleano. Usado para controlar se o
+atributo em questão dentro da classe representará uma coluna na
+tabela que poderá ou não ficar vazia. Se o dado que irá preencher
+a coluna for obrigatório, o valor do atributo nullable deverá ser
+False.
