@@ -5,3 +5,4 @@ from datetime import date
 # ano-mês-dia.
 data = date(2026, 6, 10)
 print(f"Data criada: {data}")
+print(f"Tipo da data: {type(data)}")
