@@ -1,5 +1,14 @@
 from banco_de_dados import modelo_base
 from sqlalchemy import Column, String, Integer
+from datetime import datetime
+
+def obter_data_atual():
+    formato = "%Y-%m-%dT%H:%M:%S"
+
+    data_e_hora_atual = datetime.now()
+    data_e_hora_atual_formatadas = data_e_hora_atual.strftime(formato)
+
+    return data_e_hora_atual_formatadas
 
 class RestauranteModel(modelo_base):
     __tablename__ = "restaurantes"
