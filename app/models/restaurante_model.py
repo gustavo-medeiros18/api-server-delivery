@@ -19,7 +19,8 @@ class RestauranteModel(modelo_base):
     rua = Column(String, nullable=False)
     bairro = Column(String, nullable=False)
     numero = Column(Integer, nullable=False)
-    cidade = Column(String, nullable=False)
+    cidade = Column(String, nullable=False) 
     categoria = Column(String, nullable=False)
 
-    criado_em = Column(String)
+    criado_em = Column(String, default=obter_data_atual)
+    atualizado_em = Column(String, default=obter_data_atual, onupdate=obter_data_atual)

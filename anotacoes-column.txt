@@ -24,3 +24,18 @@ atributo em questão dentro da classe representará uma coluna na
 tabela que poderá ou não ficar vazia. Se o dado que irá preencher
 a coluna for obrigatório, o valor do atributo nullable deverá ser
 False.
+
+default: Recebe um valor booleano. Usado para controlar se o
+atributo em questão dentro da classe representará uma coluna na
+tabela que terá um valor padrão. Caso o dado que irá preencher a
+coluna não venha do corpo da requisição, o banco de dados
+irá preencher a coluna com o valor padrão. Esse valor padrão pode
+ser, por exemplo, uma função que será executada para obter o valor
+que irá preencher a coluna de fato.
+
+onupdate: Recebe um valor booleano. Usado para controlar se o
+atributo em questão dentro da classe representará uma coluna na
+tabela que passará por algum comportamento especial quando o
+recurso (no caso, restaurante) for atualizado. Por exemplo, se a
+coluna for de data e hora, o banco de dados poderá atualizar a
+coluna com a data e hora atual quando o recurso for atualizado.
