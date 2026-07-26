@@ -1,4 +1,4 @@
-from banco_de_dados import modelo_base
+from app.banco_de_dados import modelo_base
 from sqlalchemy import Column, String, Integer
 from datetime import datetime
 

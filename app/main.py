@@ -1,5 +1,8 @@
 from fastapi import FastAPI
 from app.routers.restaurante_router import router
+from app.banco_de_dados import modelo_base, localizador
+
+modelo_base.metadata.create_all(bind=localizador)
 
 # API Server Delivery
 api = FastAPI(title="API Server Delivery")
