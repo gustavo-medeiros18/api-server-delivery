@@ -15,3 +15,7 @@ def criar(sessao_banco: Session, dados_restaurante: RestauranteCriacaoSchema):
 
     restaurante_criado = restaurante_dao.criar(sessao_banco, modelo_dados)
     return restaurante_criado
+
+def listar(sessao_banco: Session):
+    lista_restaurantes = restaurante_dao.listar(sessao_banco)
+    return lista_restaurantes

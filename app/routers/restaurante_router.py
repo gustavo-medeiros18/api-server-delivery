@@ -19,3 +19,13 @@ def criar(dados_entrada_restaurante: RestauranteCriacaoSchema):
         sessao_banco.close()
     
     return resposta
+
+@router.get(
+    "/restaurantes",
+    response_model=list[RestauranteRespostaSchema]
+)
+def listar():
+    sessao_banco = obter_sessao()
+
+    resposta = restaurante_service.listar(sessao_banco)
+    return resposta

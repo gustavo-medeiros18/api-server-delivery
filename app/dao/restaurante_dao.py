@@ -7,3 +7,12 @@ def criar(sessao_banco: Session, modelo_dados: RestauranteModel):
     sessao_banco.refresh(modelo_dados)
 
     return modelo_dados
+
+def listar(sessao_banco: Session):
+    consulta = sessao_banco.query(RestauranteModel)
+
+    # modelo_dados armazena uma lista
+    # com todos os restaurantes dentro
+    # da tabela.
+    modelo_dados = consulta.all()
+    return modelo_dados
