@@ -29,16 +29,15 @@ class RestauranteCriacaoSchema(BaseModel):
         max_length=100
     )
 
-class RestauranteResposta(BaseModel):
+class RestauranteRespostaSchema(BaseModel):
     id: int
     nome: str
     rua: str
-    bairro: str
     numero: int
     cidade: str
     categoria: str
-    created_at: datetime
-    updated_at: datetime
+    criado_em: str
+    atualizado_em: str
 
     class Config:
         from_attributes = True

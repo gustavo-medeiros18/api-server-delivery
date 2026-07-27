@@ -3,17 +3,10 @@ from sqlalchemy.orm import sessionmaker, declarative_base
 
 URL_BANCO = "sqlite:///./delivery.db"
 
-engine = create_engine(
-    URL_BANCO
-)
+localizador = create_engine(URL_BANCO)
+fabrica_sessoes = sessionmaker(localizador)
+modelo_base = declarative_base()
 
-SessaoLocal = sessionmaker(
-    bind=engine
-)
-
-Base = declarative_base()
-
-def obter_banco():
-    banco = SessaoLocal()
-
-    return banco
+def obter_sessao():
+    sessao_obtida = fabrica_sessoes()
+    return sessao_obtida
