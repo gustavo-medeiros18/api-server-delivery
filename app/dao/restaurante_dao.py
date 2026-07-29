@@ -16,3 +16,16 @@ def listar(sessao_banco: Session):
     # da tabela.
     modelo_dados = consulta.all()
     return modelo_dados
+
+def buscar_restaurante(sessao_banco: Session, id_restaurante_encontrar: int):
+    consulta = sessao_banco.query(RestauranteModel)
+    consulta_com_filtro = consulta.filter(RestauranteModel.id == id_restaurante_encontrar)
+
+    # modelo_dados armazena o restaurante
+    # que foi encontrado ou nada (None)
+    modelo_dados = consulta_com_filtro.one_or_none()
+    return modelo_dados
+
+def excluir(sessao_banco: Session, modelo_dados: RestauranteModel):
+    sessao_banco.delete(modelo_dados)
+    sessao_banco.commit()
