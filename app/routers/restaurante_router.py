@@ -27,5 +27,9 @@ def criar(dados_entrada_restaurante: RestauranteCriacaoSchema):
 def listar():
     sessao_banco = obter_sessao()
 
-    resposta = restaurante_service.listar(sessao_banco)
+    try:
+        resposta = restaurante_service.listar(sessao_banco)
+    finally:
+        sessao_banco.close()
+    
     return resposta
