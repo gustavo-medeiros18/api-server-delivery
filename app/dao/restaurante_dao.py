@@ -27,5 +27,7 @@ def buscar_restaurante(sessao_banco: Session, id_restaurante_encontrar: int):
     return modelo_dados
 
 def excluir(sessao_banco: Session, modelo_dados: RestauranteModel):
+    # modelo_dados representa o restaurante
+    # que se deseja excluir.
     sessao_banco.delete(modelo_dados)
     sessao_banco.commit()
