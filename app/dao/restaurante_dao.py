@@ -26,6 +26,19 @@ def buscar_restaurante(sessao_banco: Session, id_restaurante_encontrar: int):
     modelo_dados = consulta_com_filtro.one_or_none()
     return modelo_dados
 
+def atualizar(
+    sessao_banco: Session,
+    modelo_dados: RestauranteModel,
+    dados_atualizacao: dict
+):
+    for campo, valor in dados_atualizacao.items():
+        setattr(modelo_dados, campo, valor)
+
+    sessao_banco.commit()
+    sessao_banco.refresh(modelo_dados)
+
+    return modelo_dados
+
 def excluir(sessao_banco: Session, modelo_dados: RestauranteModel):
     # modelo_dados representa o restaurante
     # que se deseja excluir.

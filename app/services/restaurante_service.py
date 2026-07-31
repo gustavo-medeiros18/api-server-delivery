@@ -1,5 +1,5 @@
 from sqlalchemy.orm import Session
-from app.schemas.restaurante_schema import RestauranteCriacaoSchema
+from app.schemas.restaurante_schema import RestauranteCriacaoSchema, RestauranteAlteracaoSchema
 from app.models.restaurante_model import RestauranteModel
 from app.dao import restaurante_dao
 
@@ -19,6 +19,26 @@ def criar(sessao_banco: Session, dados_restaurante: RestauranteCriacaoSchema):
 def listar(sessao_banco: Session):
     lista_restaurantes = restaurante_dao.listar(sessao_banco)
     return lista_restaurantes
+
+def atualizar(
+    sessao_banco: Session,
+    id_restaurante_atualizar: int,
+    dados_atualizacao_restaurante: RestauranteAlteracaoSchema
+):
+    restaurante_existente = restaurante_dao.buscar_restaurante(
+        sessao_banco,
+        id_restaurante_atualizar
+    )
+
+    if not restaurante_existente:
+        return None
+
+    dados_atualizacao = dados_atualizacao_restaurante.model_dump(
+        exclude_unset=True
+    )
+
+    restaurante_atualizado = restaurante_dao.atualizar(sessao_banco, restaurante_existente, dados_atualizacao)
+    return restaurante_atualizado
 
 def excluir(sessao_banco: Session, id_restaurante_excluir: int):
     restaurante_encontrado = restaurante_dao.buscar_restaurante(sessao_banco, id_restaurante_excluir)

@@ -29,6 +29,38 @@ class RestauranteCriacaoSchema(BaseModel):
         max_length=100
     )
 
+class RestauranteAlteracaoSchema(BaseModel):
+    nome: str | None = Field(
+        default=None,
+        min_length=3,
+        max_length=100,
+        
+    )
+    rua: str | None = Field(
+        default=None,
+        min_length=3,
+        max_length=255
+    )
+    bairro: str | None = Field(
+        default=None,
+        min_length=3,
+        max_length=100
+    )
+    numero: int | None = Field(
+        default=None,
+        gt=0
+    )
+    cidade: str | None = Field(
+        default=None,
+        min_length=2,
+        max_length=100
+    )
+    categoria: str | None = Field(
+        default=None,
+        min_length=3,
+        max_length=100
+    )
+
 class RestauranteRespostaSchema(BaseModel):
     id: int
     nome: str
