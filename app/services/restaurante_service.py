@@ -17,21 +17,15 @@ def criar(sessao_banco: Session, dados_restaurante: RestauranteCriacaoSchema):
     return restaurante_criado
 
 def listar(sessao_banco: Session):
-    restaurantes_cadastrados = restaurante_dao.listar(sessao_banco)
-    return restaurantes_cadastrados
+    lista_restaurantes = restaurante_dao.listar(sessao_banco)
+    return lista_restaurantes
 
-def deletar(
-    sessao_banco: Session,
-    id: int
-):
-    restaurante_encontrado = restaurante_dao.buscar_por_id(
-        sessao_banco,
-        id
-    )
+def excluir(sessao_banco: Session, id_restaurante_excluir: int):
+    restaurante_encontrado = restaurante_dao.buscar_restaurante(sessao_banco, id_restaurante_excluir)
 
-    if restaurante_encontrado is None:
+    if restaurante_encontrado == None:
         return None
 
-    restaurante_dao.deletar(sessao_banco, restaurante_encontrado)
+    restaurante_dao.excluir(sessao_banco, restaurante_encontrado)
 
     return restaurante_encontrado

@@ -1,4 +1,4 @@
-from fastapi import APIRouter, HTTPException, status
+from fastapi import APIRouter, status, HTTPException
 from app.schemas.restaurante_schema import RestauranteCriacaoSchema, RestauranteRespostaSchema
 from app.banco_de_dados import obter_sessao
 from app.services import restaurante_service
@@ -31,27 +31,22 @@ def listar():
         resposta = restaurante_service.listar(sessao_banco)
     finally:
         sessao_banco.close()
-
+    
     return resposta
 
 @router.delete(
-    "/{restaurante_id}",
+    "/restaurantes/{id_restaurante_excluir}",
     status_code=status.HTTP_204_NO_CONTENT
 )
-def deletar(
-    restaurante_id: int
-):
+def excluir(id_restaurante_excluir: int):
     sessao_banco = obter_sessao()
 
     try:
-        restaurante_deletado = restaurante_service.deletar(
-            sessao_banco,
-            restaurante_id
-        )
+        restaurante_excluido = restaurante_service.excluir(sessao_banco, id_restaurante_excluir)
 
-        if not restaurante_deletado:
+        if restaurante_excluido == None:
             raise HTTPException(
-                status_code=404,
+                status_code=status.HTTP_404_NOT_FOUND,
                 detail="Restaurante não encontrado"
             )
     finally:
