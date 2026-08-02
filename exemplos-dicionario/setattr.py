@@ -19,7 +19,7 @@ dicionario_dados = {
 }
 itens_dicionario = dicionario_dados.items()
 
-print(f"Dados do schema antes da atualização: {dados_carro_corpo}\n")
+print(f"Dados do schema antes da alteração: {dados_carro_corpo}\n")
 
 for campo, valor in itens_dicionario:
     print(f"Atribuindo o valor contido no campo {campo} para {valor}")
@@ -33,4 +33,4 @@ for campo, valor in itens_dicionario:
     # dicionário.
     setattr(dados_carro_corpo, campo, valor)
 
-print(f"\nDados do schema após a atualização: {dados_carro_corpo}")
+print(f"\nDados do schema após a alteração: {dados_carro_corpo}")
