@@ -25,7 +25,9 @@ print(type(dados_carro_corpo))
 # model_dump é uma função (específica de variáveis
 # que são schemas) que retorna um dicionário com os
 # dados presentes nessa variável.
-dicionario_dados = dados_carro_corpo.model_dump(exclude_unset=True)
+dicionario_dados = dados_carro_corpo.model_dump(exclude_unset=True, exclude_none=True)
+
+print(f"Dicionário obtido: {dicionario_dados}")
 
 # O tipo da variável dicionario_dados é dict
 print(type(dicionario_dados))
