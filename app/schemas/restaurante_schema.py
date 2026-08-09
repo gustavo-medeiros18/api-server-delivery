@@ -28,6 +28,40 @@ class RestauranteCriacaoSchema(BaseModel):
         max_length=100
     )
 
+class RestauranteAlteracaoSchema(BaseModel):
+    # min_length = quantidade minima de caracteres para o campo
+    # max_length = quantidade maxima de caracteres para o campo
+    nome: str | None = Field(
+        default=None,
+        min_length=3,
+        max_length=100
+    )
+    rua: str | None = Field(
+        default=None,
+        min_length=3,
+        max_length=255
+    )
+    bairro: str | None = Field(
+        default=None,
+        min_length=3,
+        max_length=100
+    )
+    # gt = greater than (maior que)
+    numero: int | None = Field(
+        default=None,
+        gt=0
+    )
+    cidade: str | None = Field(
+        default=None,
+        min_length=3,
+        max_length=100
+    )
+    categoria: str | None = Field(
+        default=None,
+        min_length=3,
+        max_length=100
+    )
+
 class RestauranteRespostaSchema(BaseModel):
     id: int
     nome: str
