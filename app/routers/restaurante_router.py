@@ -1,5 +1,5 @@
 from fastapi import APIRouter, status, HTTPException
-from app.schemas.restaurante_schema import RestauranteCriacaoSchema, RestauranteRespostaSchema
+from app.schemas.restaurante_schema import RestauranteCriacaoSchema, RestauranteRespostaSchema, RestauranteAlteracaoSchema
 from app.banco_de_dados import obter_sessao
 from app.services import restaurante_service
 
@@ -33,6 +33,30 @@ def listar():
         sessao_banco.close()
     
     return resposta
+
+@router.patch(
+    "/restaurantes/{id_restaurante_alterar}",
+    response_model=RestauranteRespostaSchema
+)
+def alterar(id_restaurante_alterar: int, dados_atualizacao_restaurante: RestauranteAlteracaoSchema):
+    sessao_banco = obter_sessao()
+
+    try:
+        restaurante_atualizado = restaurante_service.alterar(
+            sessao_banco,
+            id_restaurante_alterar,
+            dados_atualizacao_restaurante
+        )
+
+        if restaurante_atualizado == None:
+            raise HTTPException(
+                status_code=status.HTTP_404_NOT_FOUND,
+                detail="Restaurante não encontrado"
+            )
+    finally:
+        sessao_banco.close()
+
+    return restaurante_atualizado
 
 @router.delete(
     "/restaurantes/{id_restaurante_excluir}",
