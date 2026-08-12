@@ -1,5 +1,4 @@
 from pydantic import BaseModel, Field
-from datetime import datetime
 
 class RestauranteCriacaoSchema(BaseModel):
     # min_length = quantidade minima de caracteres para o campo

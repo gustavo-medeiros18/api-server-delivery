@@ -1,5 +1,6 @@
 from app.banco_de_dados import modelo_base
 from sqlalchemy import Column, String, Integer
+from sqlalchemy.orm import relationship
 from datetime import datetime
 
 def obter_data_atual():
@@ -24,3 +25,8 @@ class RestauranteModel(modelo_base):
 
     criado_em = Column(String, default=obter_data_atual)
     atualizado_em = Column(String, default=obter_data_atual, onupdate=obter_data_atual)
+
+    pedidos = relationship(
+        "PedidoModel",
+        back_populates="restaurante"
+    )
