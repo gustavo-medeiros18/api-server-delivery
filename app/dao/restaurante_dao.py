@@ -2,6 +2,9 @@ from sqlalchemy.orm import Session
 from app.models.restaurante_model import RestauranteModel
 
 def criar(sessao_banco: Session, modelo_dados: RestauranteModel):
+    # modelo_dados representa o novo restaurante
+    # que está sendo persistido no banco de dados.
+
     sessao_banco.add(modelo_dados)
     sessao_banco.commit()
     sessao_banco.refresh(modelo_dados)
@@ -36,6 +39,8 @@ def alterar(
     for campo, valor in itens_dicionario:
         setattr(modelo_dados, campo, valor)
 
+    # modelo_dados representa o restaurante cujos
+    # dados estão sendo alterados.
     sessao_banco.commit()
     sessao_banco.refresh(modelo_dados)
 

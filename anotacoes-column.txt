@@ -39,3 +39,11 @@ tabela que passará por algum comportamento especial quando o
 recurso (no caso, restaurante) for atualizado. Por exemplo, se a
 coluna for de data e hora, o banco de dados poderá atualizar a
 coluna com a data e hora atual quando o recurso for atualizado.
+
+ForeignKey (classe chamada como se fosse uma função): Recebe como
+parâmetro o nome do atributo do model que será referenciado como
+chave estrangeira. Usado para controlar se o atributo em questão dentro
+da classe representará uma coluna na tabela que será uma chave
+estrangeira. Uma chave estrangeira é uma coluna que referencia outra
+tabela, ou seja, o valor que irá preencher esta coluna será o mesmo
+que o valor de uma outra coluna em uma outra outra tabela.
