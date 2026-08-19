@@ -20,6 +20,10 @@ def listar(sessao_banco: Session):
     lista_restaurantes = restaurante_dao.listar(sessao_banco)
     return lista_restaurantes
 
+def buscar_restaurante(sessao_banco: Session, id_restaurante: int):
+    restaurante_encontrado = restaurante_dao.buscar_restaurante(sessao_banco, id_restaurante)
+    return restaurante_encontrado
+
 def alterar(
     sessao_banco: Session,
     id_restaurante_alterar: int,
