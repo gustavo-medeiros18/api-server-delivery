@@ -23,3 +23,16 @@ class PedidoCriacaoSchema(BaseModel):
     id_restaurante: int = Field(
         gt=0
     )
+
+class PedidoRespostaSchema(BaseModel):
+    id: int
+    prato_principal: str
+    acompanhamento: str
+    observacao: str | None
+    valor: float
+    id_restaurante: int
+    criado_em: str
+    atualizado_em: str
+
+    class Config:
+        from_attributes = True
