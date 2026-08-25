@@ -1,13 +1,6 @@
-from datetime import datetime, UTC
-from sqlalchemy import (
-    Column,
-    Integer,
-    String,
-    Float,
-    ForeignKey
-)
-from sqlalchemy.orm import relationship
 from app.banco_de_dados import modelo_base
+from sqlalchemy import Column, String, Float, Integer, ForeignKey
+from datetime import datetime
 
 def obter_data_atual():
     formato = "%Y-%m-%dT%H:%M:%S"
@@ -24,27 +17,19 @@ class PedidoModel(modelo_base):
 
     prato_principal = Column(String, nullable=False)
     acompanhamento = Column(String, nullable=False)
-    observacao = Column(String)
+    observacao = Column(String, nullable=True)
     valor = Column(Float, nullable=False)
 
-    id_restaurante = Column(
-        Integer,
-        ForeignKey("restaurantes.id"),
-        nullable=False
-    )
+    # O atributo de chave_estrangeira representa a coluna
+    # dentro da tabela que será referenciada. Como cada
+    # pedido precisará possuir o id do restaurante ao qual
+    # está associado, e esse id do restaurante é uma
+    # informação que vem de uma tabela externa (isto é, da
+    # coluna id dentro da tabela restaurantes), deve ser
+    # informada restaurantes.id como parâmetro a classe
+    # ForeignKey
+    chave_estrangeira = ForeignKey("restaurantes.id")
+    id_restaurante = Column(Integer, chave_estrangeira, nullable=False)
 
-    criado_em = Column(
-        String,
-        default=obter_data_atual,
-    )
-
-    atualizado_em = Column(
-        String,
-        default=obter_data_atual,
-        onupdate=obter_data_atual,
-    )
-
-    restaurante = relationship(
-        "RestauranteModel",
-        back_populates="pedidos"
-    )
+    criado_em = Column(String, default=obter_data_atual)
+    atualizado_em = Column(String, default=obter_data_atual, onupdate=obter_data_atual)

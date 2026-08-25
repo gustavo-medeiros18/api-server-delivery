@@ -18,6 +18,8 @@ dados_carro_corpo = CarroSchema(
     dono="Fulano"
 )
 
+print(f"Dados da variável: {dados_carro_corpo}")
+
 # O tipo da variável dados_carro_corpo será CarroSchema,
 # que é a classe a qual ela pertence
 print(type(dados_carro_corpo))

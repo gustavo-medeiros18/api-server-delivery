@@ -18,15 +18,18 @@ dados_carro_corpo = CarroSchema(
     dono="Fulano"
 )
 
+print(f"Dados da variável: {dados_carro_corpo}")
+
 # O tipo da variável dados_carro_corpo será CarroSchema,
 # que é a classe a qual ela pertence
 print(type(dados_carro_corpo))
 
 # model_dump é uma função (específica de variáveis
-# que são schemas) que retorna um dicionário com os
-# dados presentes nessa variável.
+# que são schemas) que converte o conteúdo dessa
+# variável de schema para dicionário.
 dicionario_dados = dados_carro_corpo.model_dump()
+
+print(f"\nConteúdo do dicionário: {dicionario_dados}")
 
 # O tipo da variável dicionario_dados é dict
 print(type(dicionario_dados))
-print(f"Conteúdo do dicionário: {dicionario_dados}")

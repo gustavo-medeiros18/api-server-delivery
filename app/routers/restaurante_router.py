@@ -35,28 +35,28 @@ def listar():
     return resposta
 
 @router.patch(
-    "/restaurantes/{id_restaurante_atualizar}",
+    "/restaurantes/{id_restaurante_alterar}",
     response_model=RestauranteRespostaSchema
 )
-def atualizar(id_restaurante_atualizar: int, dados_atualizacao_restaurante: RestauranteAlteracaoSchema):
+def alterar(id_restaurante_alterar: int, dados_atualizacao_restaurante: RestauranteAlteracaoSchema):
     sessao_banco = obter_sessao()
 
     try:
-        restaurante_atualizado = restaurante_service.atualizar(
+        restaurante_atualizado = restaurante_service.alterar(
             sessao_banco,
-            id_restaurante_atualizar,
+            id_restaurante_alterar,
             dados_atualizacao_restaurante
         )
 
         if restaurante_atualizado == None:
             raise HTTPException(
-                status_code=404,
+                status_code=status.HTTP_404_NOT_FOUND,
                 detail="Restaurante não encontrado"
             )
-
-        return restaurante_atualizado
     finally:
         sessao_banco.close()
+
+    return restaurante_atualizado
 
 @router.delete(
     "/restaurantes/{id_restaurante_excluir}",

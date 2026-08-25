@@ -7,7 +7,7 @@ dicionario_dados = {
 
 # A função items, que é uma função específica de dicionários
 # permite obter uma estrutura semelhante a uma lista de tuplas,
-# em que cada elemento é um dos pares chave-valor que compõem
+# em que cada elemento é um dos pares campo-valor que compõem
 # um dicionário.
-items = dicionario_dados.items()
-print(items)
+itens_dicionario = dicionario_dados.items()
+print(itens_dicionario)

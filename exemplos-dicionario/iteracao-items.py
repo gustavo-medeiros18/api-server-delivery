@@ -19,4 +19,4 @@ print(itens_dicionario, "\n")
 # Necessário usar a sintaxe geral:
 # for campo, valor in <nome_da_variavel_items>
 for campo, valor in itens_dicionario:
-    print (f"iterando sobre o campo {campo}, que possui o valor {valor}")
+    print(f"iterando sobre o campo {campo}, que possui o valor {valor}")

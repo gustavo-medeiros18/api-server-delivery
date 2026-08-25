@@ -1,5 +1,4 @@
 from sqlalchemy.orm import Session
-
 from app.models.pedido_model import PedidoModel
 
 def criar(sessao_banco: Session, modelo_dados: PedidoModel):

@@ -2,6 +2,9 @@ from sqlalchemy.orm import Session
 from app.models.restaurante_model import RestauranteModel
 
 def criar(sessao_banco: Session, modelo_dados: RestauranteModel):
+    # modelo_dados representa o novo restaurante
+    # que está sendo persistido no banco de dados.
+
     sessao_banco.add(modelo_dados)
     sessao_banco.commit()
     sessao_banco.refresh(modelo_dados)
@@ -26,14 +29,18 @@ def buscar_restaurante(sessao_banco: Session, id_restaurante_encontrar: int):
     modelo_dados = consulta_com_filtro.one_or_none()
     return modelo_dados
 
-def atualizar(
+def alterar(
     sessao_banco: Session,
     modelo_dados: RestauranteModel,
-    dados_atualizacao: dict
+    dados_atualizacao_restaurante: dict
 ):
-    for campo, valor in dados_atualizacao.items():
+    itens_dicionario = dados_atualizacao_restaurante.items()
+
+    for campo, valor in itens_dicionario:
         setattr(modelo_dados, campo, valor)
 
+    # modelo_dados representa o restaurante cujos
+    # dados estão sendo alterados.
     sessao_banco.commit()
     sessao_banco.refresh(modelo_dados)
 

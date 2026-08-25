@@ -9,15 +9,15 @@
 # Nessa função, está sendo especificada uma union para
 # o parâmetro recebido por ela. Aqui, o parâmetro
 # recebido pode ser do tipo int ou então None.
-def funcao_sem_union(parametro: int | None):
-    print(f"Parametro recebido pela função {parametro}")
+def funcao_com_union(numero: int | None):
+    print(f"Número recebido pela função {numero}")
 
 # Chamada sem nenhuma sinalização de erro. Já que está
 # sendo passado um número inteiro como parâmetro (que
 # respeita a tipagem definida)
-funcao_sem_union(10)
+funcao_com_union(10)
 
 # Passar None como um parâmetro agora não causa mais
 # uma sinalização de erro. Já que None também é uma
 # possibilidade de tipo graças a Union.
-funcao_sem_union(None)
+funcao_com_union(None)

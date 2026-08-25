@@ -1,8 +1,8 @@
 # Nessa função, o valor passado como parâmetro só
 # pode pertencer a um tipo de dados, que seria o
 # tipo int.
-def funcao_sem_union(parametro: int):
-    print(f"Parametro recebido pela função {parametro}")
+def funcao_sem_union(numero: int):
+    print(f"Parametro recebido pela função {numero}")
 
 # Chamada sem nenhuma sinalização de erro. Tipagem
 # do parâmetro está sendo respeitada.

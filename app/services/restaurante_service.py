@@ -20,31 +20,28 @@ def listar(sessao_banco: Session):
     lista_restaurantes = restaurante_dao.listar(sessao_banco)
     return lista_restaurantes
 
-def buscar_restaurante(
-    banco: Session,
-    id_restaurante: int
-):
-    restaurante_encontrado = restaurante_dao.buscar_restaurante(banco, id_restaurante)
+def buscar_restaurante(sessao_banco: Session, id_restaurante: int):
+    restaurante_encontrado = restaurante_dao.buscar_restaurante(sessao_banco, id_restaurante)
     return restaurante_encontrado
 
-def atualizar(
+def alterar(
     sessao_banco: Session,
-    id_restaurante_atualizar: int,
+    id_restaurante_alterar: int,
     dados_atualizacao_restaurante: RestauranteAlteracaoSchema
 ):
-    restaurante_existente = restaurante_dao.buscar_restaurante(
-        sessao_banco,
-        id_restaurante_atualizar
-    )
+    restaurante_encontrado = restaurante_dao.buscar_restaurante(sessao_banco, id_restaurante_alterar)
 
-    if not restaurante_existente:
+    if restaurante_encontrado == None:
         return None
 
-    dados_atualizacao = dados_atualizacao_restaurante.model_dump(
-        exclude_unset=True
+    dicionario_atualizacao = dados_atualizacao_restaurante.model_dump(exclude_unset=True)
+
+    restaurante_atualizado = restaurante_dao.alterar(
+        sessao_banco,
+        restaurante_encontrado,
+        dicionario_atualizacao
     )
 
-    restaurante_atualizado = restaurante_dao.atualizar(sessao_banco, restaurante_existente, dados_atualizacao)
     return restaurante_atualizado
 
 def excluir(sessao_banco: Session, id_restaurante_excluir: int):

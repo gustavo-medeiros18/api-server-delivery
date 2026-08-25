@@ -29,11 +29,12 @@ class RestauranteCriacaoSchema(BaseModel):
     )
 
 class RestauranteAlteracaoSchema(BaseModel):
+    # min_length = quantidade minima de caracteres para o campo
+    # max_length = quantidade maxima de caracteres para o campo
     nome: str | None = Field(
         default=None,
         min_length=3,
-        max_length=100,
-        
+        max_length=100
     )
     rua: str | None = Field(
         default=None,
@@ -45,13 +46,14 @@ class RestauranteAlteracaoSchema(BaseModel):
         min_length=3,
         max_length=100
     )
+    # gt = greater than (maior que)
     numero: int | None = Field(
         default=None,
         gt=0
     )
     cidade: str | None = Field(
         default=None,
-        min_length=2,
+        min_length=3,
         max_length=100
     )
     categoria: str | None = Field(

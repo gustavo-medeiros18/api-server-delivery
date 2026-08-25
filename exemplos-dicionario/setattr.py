@@ -19,18 +19,20 @@ dicionario_dados = {
 }
 itens_dicionario = dicionario_dados.items()
 
-print(f"Dados do schema antes da alteração: {dados_carro_corpo}\n")
+print(f"Dados da variável de schema antes da alteração: {dados_carro_corpo}\n")
 
 for campo, valor in itens_dicionario:
     print(f"Atribuindo o valor contido no campo {campo} para {valor}")
 
     # A função setattr() pode ser utilizada dentro de uma iteração
     # para percorrer um dicionário e atribuir os valores de cada
-    # campo a uma determinada variável que representa uma classe.
+    # campo a cada atributo correspondente dentro de uma classe,
+    # que pode ser tanto uma classe de schema como uma classe de
+    # modelo de dados.
 
     # Muito utilizada na prática para alterar os valores de determinados
     # atributos de um schema ou modelo de dados com o conteúdo de um
     # dicionário.
     setattr(dados_carro_corpo, campo, valor)
 
-print(f"\nDados do schema após a alteração: {dados_carro_corpo}")
+print(f"\nDados da variável de schema após a alteração: {dados_carro_corpo}")
