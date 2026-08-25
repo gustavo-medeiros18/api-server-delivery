@@ -30,3 +30,37 @@ def criar(dados_entrada: PedidoCriacaoSchema):
         sessao_banco.close()
     
     return pedido_criado
+
+@router.get(
+    "/pedidos",
+    response_model=list[PedidoRespostaSchema]
+)
+def listar():
+    sessao_banco = obter_sessao()
+
+    try:
+        resposta = pedido_service.listar(sessao_banco)
+    finally:
+        sessao_banco.close()
+    
+    return resposta
+
+@router.delete(
+    "/pedidos/{id_pedido}",
+    status_code=status.HTTP_204_NO_CONTENT
+)
+def deletar(id_pedido: int):
+    sessao_banco = obter_sessao()
+
+    try:
+        pedido_excluido = pedido_service.excluir(sessao_banco, id_pedido)
+
+        if pedido_excluido == None:
+            raise HTTPException(
+                status_code=status.HTTP_404_NOT_FOUND,
+                detail="Pedido não encontrado"
+            )
+    finally:
+        sessao_banco.close()
+
+    return None

@@ -25,8 +25,3 @@ class RestauranteModel(modelo_base):
 
     criado_em = Column(String, default=obter_data_atual)
     atualizado_em = Column(String, default=obter_data_atual, onupdate=obter_data_atual)
-
-    pedidos = relationship(
-        "PedidoModel",
-        back_populates="restaurante"
-    )
