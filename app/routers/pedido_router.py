@@ -30,3 +30,12 @@ def criar(dados_entrada: PedidoCriacaoSchema):
         sessao_banco.close()
     
     return pedido_criado
+
+@router.get(
+    "/pedidos"
+)
+def listar():
+    sessao_banco = obter_sessao()
+
+    lista_pedidos = pedido_service.listar(sessao_banco)
+    return lista_pedidos

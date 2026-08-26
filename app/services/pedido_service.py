@@ -14,3 +14,7 @@ def criar(sessao_banco: Session, dados_entrada: PedidoCriacaoSchema):
 
     pedido_criado = pedido_dao.criar(sessao_banco, modelo_dados)
     return pedido_criado
+
+def listar(sessao_banco: Session):
+    lista_pedidos = pedido_dao.listar(sessao_banco)
+    return lista_pedidos
