@@ -32,10 +32,15 @@ def criar(dados_entrada: PedidoCriacaoSchema):
     return pedido_criado
 
 @router.get(
-    "/pedidos"
+    "/pedidos",
+    response_model=list[PedidoRespostaSchema]
 )
 def listar():
     sessao_banco = obter_sessao()
 
-    lista_pedidos = pedido_service.listar(sessao_banco)
+    try:
+        lista_pedidos = pedido_service.listar(sessao_banco)
+    finally:
+        sessao_banco.close()
+    
     return lista_pedidos
