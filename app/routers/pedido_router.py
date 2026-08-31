@@ -44,3 +44,23 @@ def listar():
         sessao_banco.close()
     
     return lista_pedidos
+
+@router.delete(
+    "/pedidos/{id_pedido_excluir}",
+    status_code=status.HTTP_204_NO_CONTENT
+)
+def excluir(id_pedido_excluir: int):
+    sessao_banco = obter_sessao()
+
+    try:
+        pedido_excluido = pedido_service.excluir(sessao_banco, id_pedido_excluir)
+
+        if pedido_excluido == None:
+            raise HTTPException(
+                status_code=status.HTTP_404_NOT_FOUND,
+                detail="Pedido não encontrado"
+            )
+    finally:
+        sessao_banco.close()
+        
+    return None

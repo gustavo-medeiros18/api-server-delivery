@@ -18,3 +18,12 @@ def criar(sessao_banco: Session, dados_entrada: PedidoCriacaoSchema):
 def listar(sessao_banco: Session):
     lista_pedidos = pedido_dao.listar(sessao_banco)
     return lista_pedidos
+
+def excluir(sessao_banco: Session, id_pedido_excluir: int):
+    pedido_encontrado = pedido_dao.buscar_pedido(sessao_banco, id_pedido_excluir)
+
+    if pedido_encontrado == None:
+        return None
+
+    pedido_dao.excluir(sessao_banco, pedido_encontrado)
+    return pedido_encontrado
