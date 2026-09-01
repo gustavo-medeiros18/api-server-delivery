@@ -1,3 +1,4 @@
+from fastapi import HTTPException
 from sqlalchemy.orm import Session
 from app.schemas.restaurante_schema import RestauranteCriacaoSchema, RestauranteAlteracaoSchema
 from app.models.restaurante_model import RestauranteModel
@@ -49,6 +50,15 @@ def excluir(sessao_banco: Session, id_restaurante_excluir: int):
 
     if restaurante_encontrado == None:
         return None
+
+    if len(restaurante_encontrado.pedidos) > 0:
+        raise HTTPException(
+            status_code=409,
+            detail=(
+                "Não é possível deletar restaurante "
+                "com pedidos associados"
+            )
+        )
 
     restaurante_dao.excluir(sessao_banco, restaurante_encontrado)
 

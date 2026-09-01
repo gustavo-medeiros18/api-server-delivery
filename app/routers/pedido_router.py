@@ -1,5 +1,5 @@
 from fastapi import APIRouter, status, HTTPException
-from app.schemas.pedido_schema import PedidoCriacaoSchema, PedidoRespostaSchema
+from app.schemas.pedido_schema import PedidoAlteracao, PedidoCriacaoSchema, PedidoRespostaSchema
 from app.banco_de_dados import obter_sessao
 from app.services import pedido_service, restaurante_service
 
@@ -44,6 +44,33 @@ def listar():
         sessao_banco.close()
     
     return lista_pedidos
+
+@router.patch(
+    "/{pedido_id}",
+    response_model=PedidoRespostaSchema
+)
+def atualizar(
+    pedido_id: int,
+    pedido: PedidoAlteracao
+):
+    banco = obter_sessao()
+
+    try:
+        pedido_atualizado = pedido_service.atualizar_pedido(
+            banco,
+            pedido_id,
+            pedido
+        )
+
+        if not pedido_atualizado:
+            raise HTTPException(
+                status_code=404,
+                detail="Pedido não encontrado"
+            )
+
+        return pedido_atualizado
+    finally:
+        banco.close()
 
 @router.delete(
     "/pedidos/{id_pedido_excluir}",

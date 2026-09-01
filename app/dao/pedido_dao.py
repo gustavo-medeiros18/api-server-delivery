@@ -25,6 +25,19 @@ def listar(sessao_banco: Session):
     modelo_dados = consulta.all()
     return modelo_dados
 
+def atualizar(
+    banco: Session,
+    pedido: PedidoModel,
+    dados_atualizacao: dict
+):
+    for campo, valor in dados_atualizacao.items():
+        setattr(pedido, campo, valor)
+
+    banco.commit()
+    banco.refresh(pedido)
+
+    return pedido
+
 def excluir(sessao_banco: Session, modelo_dados: PedidoModel):
     sessao_banco.delete(modelo_dados)
     sessao_banco.commit()
