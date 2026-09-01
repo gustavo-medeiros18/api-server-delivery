@@ -39,21 +39,21 @@ def listar():
     sessao_banco = obter_sessao()
 
     try:
-        resposta = pedido_service.listar(sessao_banco)
+        lista_pedidos = pedido_service.listar(sessao_banco)
     finally:
         sessao_banco.close()
     
-    return resposta
+    return lista_pedidos
 
 @router.delete(
-    "/pedidos/{id_pedido}",
+    "/pedidos/{id_pedido_excluir}",
     status_code=status.HTTP_204_NO_CONTENT
 )
-def deletar(id_pedido: int):
+def excluir(id_pedido_excluir: int):
     sessao_banco = obter_sessao()
 
     try:
-        pedido_excluido = pedido_service.excluir(sessao_banco, id_pedido)
+        pedido_excluido = pedido_service.excluir(sessao_banco, id_pedido_excluir)
 
         if pedido_excluido == None:
             raise HTTPException(
@@ -62,5 +62,5 @@ def deletar(id_pedido: int):
             )
     finally:
         sessao_banco.close()
-
+        
     return None

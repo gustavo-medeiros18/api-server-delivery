@@ -19,8 +19,8 @@ def listar(sessao_banco: Session):
     lista_pedidos = pedido_dao.listar(sessao_banco)
     return lista_pedidos
 
-def excluir(sessao_banco: Session, id_pedido: int):
-    pedido_encontrado = pedido_dao.buscar_pedido(sessao_banco, id_pedido)
+def excluir(sessao_banco: Session, id_pedido_excluir: int):
+    pedido_encontrado = pedido_dao.buscar_pedido(sessao_banco, id_pedido_excluir)
 
     if pedido_encontrado == None:
         return None
