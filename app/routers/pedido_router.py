@@ -46,7 +46,7 @@ def listar():
     return lista_pedidos
 
 @router.patch(
-    "/{pedido_id}",
+    "/pedidos/{pedido_id}",
     response_model=PedidoRespostaSchema
 )
 def atualizar(

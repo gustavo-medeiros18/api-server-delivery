@@ -56,4 +56,4 @@ class PedidoAlteracao(BaseModel):
         default=None,
         gt=0
     )
-    restaurante_id: int | None = None
+    id_restaurante: int | None = None

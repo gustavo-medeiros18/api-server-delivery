@@ -40,10 +40,10 @@ def atualizar_pedido(
     if not pedido_existente:
         return None
 
-    if dados_pedido.restaurante_id != None:
+    if dados_pedido.id_restaurante != None:
         restaurante = restaurante_dao.buscar_restaurante(
             banco,
-            dados_pedido.restaurante_id
+            dados_pedido.id_restaurante
         )
 
         if not restaurante:
