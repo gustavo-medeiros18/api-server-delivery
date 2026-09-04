@@ -24,6 +24,34 @@ class PedidoCriacaoSchema(BaseModel):
         gt=0
     )
 
+class PedidoAlteracaoSchema(BaseModel):
+    prato_principal: str | None = Field(
+        default=None,
+        min_length=3,
+        max_length=100
+    )
+
+    acompanhamento: str | None = Field(
+        default=None,
+        min_length=3,
+        max_length=100
+    )
+
+    observacao: str | None = Field(
+        default=None,
+        max_length=100
+    )
+
+    valor: float | None = Field(
+        default=None,
+        gt=0
+    )
+
+    id_restaurante: int | None = Field(
+        default=None,
+        gt=0
+    )
+
 class PedidoRespostaSchema(BaseModel):
     id: int
     prato_principal: str
