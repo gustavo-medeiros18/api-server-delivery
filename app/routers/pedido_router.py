@@ -1,5 +1,5 @@
 from fastapi import APIRouter, status, HTTPException
-from app.schemas.pedido_schema import PedidoCriacaoSchema, PedidoRespostaSchema
+from app.schemas.pedido_schema import PedidoCriacaoSchema, PedidoRespostaSchema, PedidoAlteracaoSchema
 from app.banco_de_dados import obter_sessao
 from app.services import pedido_service, restaurante_service
 
@@ -44,6 +44,21 @@ def listar():
         sessao_banco.close()
     
     return lista_pedidos
+
+@router.patch(
+    "/pedidos/{id_pedido_alterar}",
+    response_model=PedidoRespostaSchema
+)
+def alterar(id_pedido_alterar: int, dados_atualizacao_pedido: PedidoAlteracaoSchema):
+    sessao_banco = obter_sessao()
+
+    pedido_atualizado = pedido_service.alterar(
+        sessao_banco,
+        id_pedido_alterar,
+        dados_atualizacao_pedido
+    )
+
+    return pedido_atualizado
 
 @router.delete(
     "/pedidos/{id_pedido_excluir}",

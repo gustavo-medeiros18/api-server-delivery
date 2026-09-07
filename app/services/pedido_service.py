@@ -1,5 +1,5 @@
 from sqlalchemy.orm import Session
-from app.schemas.pedido_schema import PedidoCriacaoSchema
+from app.schemas.pedido_schema import PedidoCriacaoSchema, PedidoAlteracaoSchema
 from app.models.pedido_model import PedidoModel
 from app.dao import pedido_dao
 
@@ -18,6 +18,26 @@ def criar(sessao_banco: Session, dados_entrada: PedidoCriacaoSchema):
 def listar(sessao_banco: Session):
     lista_pedidos = pedido_dao.listar(sessao_banco)
     return lista_pedidos
+
+def alterar(
+    sessao_banco: Session,
+    id_pedido_alterar: int, 
+    dados_atualizacao_pedido: PedidoAlteracaoSchema
+):
+    pedido_encontrado = pedido_dao.buscar_pedido(sessao_banco, id_pedido_alterar)
+
+    if pedido_encontrado == None:
+        return None
+
+    dicionario_atualizacao = dados_atualizacao_pedido.model_dump(exclude_unset=True)
+
+    pedido_atualizado = pedido_dao.alterar(
+        sessao_banco,
+        pedido_encontrado,
+        dicionario_atualizacao
+    )
+
+    return pedido_atualizado
 
 def excluir(sessao_banco: Session, id_pedido_excluir: int):
     pedido_encontrado = pedido_dao.buscar_pedido(sessao_banco, id_pedido_excluir)
