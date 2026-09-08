@@ -1,7 +1,8 @@
 from sqlalchemy.orm import Session
 from app.schemas.pedido_schema import PedidoCriacaoSchema, PedidoAlteracaoSchema
 from app.models.pedido_model import PedidoModel
-from app.dao import pedido_dao
+from app.dao import pedido_dao, restaurante_dao
+from fastapi import HTTPException, status
 
 def criar(sessao_banco: Session, dados_entrada: PedidoCriacaoSchema):
     modelo_dados = PedidoModel(
@@ -28,6 +29,20 @@ def alterar(
 
     if pedido_encontrado == None:
         return None
+
+    id_restaurante_encontrar = dados_atualizacao_pedido.id_restaurante
+
+    if id_restaurante_encontrar != None:
+        restaurante_encontrado = restaurante_dao.buscar_restaurante(
+            sessao_banco,
+            id_restaurante_encontrar
+        )
+
+        if restaurante_encontrado == None:
+            raise HTTPException(
+                status_code=status.HTTP_404_NOT_FOUND,
+                detail="Restaurante não encontrado"
+            )
 
     dicionario_atualizacao = dados_atualizacao_pedido.model_dump(exclude_unset=True)
 

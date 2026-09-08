@@ -52,11 +52,20 @@ def listar():
 def alterar(id_pedido_alterar: int, dados_atualizacao_pedido: PedidoAlteracaoSchema):
     sessao_banco = obter_sessao()
 
-    pedido_atualizado = pedido_service.alterar(
-        sessao_banco,
-        id_pedido_alterar,
-        dados_atualizacao_pedido
-    )
+    try:
+        pedido_atualizado = pedido_service.alterar(
+            sessao_banco,
+            id_pedido_alterar,
+            dados_atualizacao_pedido
+        )
+
+        if pedido_atualizado == None:
+            raise HTTPException(
+                status_code=status.HTTP_404_NOT_FOUND,
+                detail="Pedido não encontrado"
+            )
+    finally:
+        sessao_banco.close()
 
     return pedido_atualizado
 
