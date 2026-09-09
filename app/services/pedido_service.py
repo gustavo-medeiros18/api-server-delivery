@@ -1,8 +1,9 @@
 from fastapi import HTTPException
 from sqlalchemy.orm import Session
-from app.schemas.pedido_schema import PedidoCriacaoSchema, PedidoAlteracao
+from app.schemas.pedido_schema import PedidoCriacaoSchema, PedidoAlteracaoSchema
 from app.models.pedido_model import PedidoModel
 from app.dao import pedido_dao, restaurante_dao
+from fastapi import HTTPException, status
 
 def criar(sessao_banco: Session, dados_entrada: PedidoCriacaoSchema):
     modelo_dados = PedidoModel(
@@ -20,43 +21,38 @@ def listar(sessao_banco: Session):
     lista_pedidos = pedido_dao.listar(sessao_banco)
     return lista_pedidos
 
-def buscar_pedido_por_id(
-    banco: Session,
-    pedido_id: int
+def alterar(
+    sessao_banco: Session,
+    id_pedido_alterar: int, 
+    dados_atualizacao_pedido: PedidoAlteracaoSchema
 ):
-    pedido_encontrado = pedido_dao.buscar_pedido(banco, pedido_id)
-    return pedido_encontrado
+    pedido_encontrado = pedido_dao.buscar_pedido(sessao_banco, id_pedido_alterar)
 
-def atualizar_pedido(
-    banco: Session,
-    pedido_id: int,
-    dados_pedido: PedidoAlteracao
-):
-    pedido_existente = buscar_pedido_por_id(
-        banco,
-        pedido_id
-    )
-
-    if not pedido_existente:
+    if pedido_encontrado == None:
         return None
 
-    if dados_pedido.id_restaurante != None:
-        restaurante = restaurante_dao.buscar_restaurante(
-            banco,
-            dados_pedido.id_restaurante
+    id_restaurante_encontrar = dados_atualizacao_pedido.id_restaurante
+
+    if id_restaurante_encontrar != None:
+        restaurante_encontrado = restaurante_dao.buscar_restaurante(
+            sessao_banco,
+            id_restaurante_encontrar
         )
 
-        if not restaurante:
+        if restaurante_encontrado == None:
             raise HTTPException(
-                status_code=404,
+                status_code=status.HTTP_404_NOT_FOUND,
                 detail="Restaurante não encontrado"
             )
 
-    dados_atualizacao = dados_pedido.model_dump(
-        exclude_unset=True
+    dicionario_atualizacao = dados_atualizacao_pedido.model_dump(exclude_unset=True)
+
+    pedido_atualizado = pedido_dao.alterar(
+        sessao_banco,
+        pedido_encontrado,
+        dicionario_atualizacao
     )
 
-    pedido_atualizado = pedido_dao.atualizar(banco, pedido_existente, dados_atualizacao)
     return pedido_atualizado
 
 def excluir(sessao_banco: Session, id_pedido_excluir: int):
