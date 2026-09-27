@@ -47,3 +47,16 @@ def test_listar(monkeypatch):
 
     assert resultado is lista_simulada
     listar_dao_simulado.assert_called_with(sessao_simulada)
+
+def test_buscar(monkeypatch):
+    sessao_simulada = Mock()
+
+    retorno_dao_simulado = Mock(spec=RestauranteModel)
+    buscar_dao_simulado = Mock(return_value=retorno_dao_simulado)
+
+    monkeypatch.setattr(restaurante_service.restaurante_dao, "buscar_restaurante", buscar_dao_simulado)
+
+    resultado = restaurante_service.buscar_restaurante(sessao_simulada, 7)
+
+    assert resultado is retorno_dao_simulado
+    buscar_dao_simulado.assert_called_with(sessao_simulada, 7)
