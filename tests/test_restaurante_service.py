@@ -33,3 +33,17 @@ def test_criar(monkeypatch):
     assert modelo_dados_criado.categoria == dados_entrada_exemplo.categoria
 
     criar_dao_simulado.assert_called_with(sessao_simulada, modelo_dados_criado)
+
+def test_listar(monkeypatch):
+    sessao_simulada = Mock()
+
+    retorno_dao_simulado = Mock(spec=RestauranteModel)
+    lista_simulada = [retorno_dao_simulado]
+
+    listar_dao_simulado = Mock(return_value=lista_simulada)
+    monkeypatch.setattr(restaurante_service.restaurante_dao, "listar", listar_dao_simulado)
+
+    resultado = restaurante_service.listar(sessao_simulada)
+
+    assert resultado is lista_simulada
+    listar_dao_simulado.assert_called_with(sessao_simulada)
