@@ -60,3 +60,20 @@ def test_buscar(monkeypatch):
 
     assert resultado is retorno_dao_simulado
     buscar_dao_simulado.assert_called_with(sessao_simulada, 7)
+
+def test_excluir_restaurante_sem_pedidos(monkeypatch):
+    sessao_simulada = Mock()
+
+    retorno_dao_simulado = Mock(spec=RestauranteModel)
+    retorno_dao_simulado.pedidos = []
+
+    buscar_dao_simulado = Mock(return_value=retorno_dao_simulado)
+    monkeypatch.setattr(restaurante_service.restaurante_dao, "buscar_restaurante", buscar_dao_simulado)
+
+    excluir_dao_simulado = Mock()
+    monkeypatch.setattr(restaurante_service.restaurante_dao, "excluir", excluir_dao_simulado)
+
+    resultado = restaurante_service.excluir(sessao_simulada, 7)
+
+    assert resultado is retorno_dao_simulado
+    excluir_dao_simulado.assert_called_with(sessao_simulada, retorno_dao_simulado)
