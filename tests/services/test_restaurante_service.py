@@ -136,8 +136,12 @@ def test_excluir_rejeita_restaurante_com_pedidos(monkeypatch):
     )
     excluir_dao = Mock()
     monkeypatch.setattr(restaurante_service.restaurante_dao, "excluir", excluir_dao)
-    with pytest.raises(HTTPException) as excecao:
-        restaurante_service.excluir(sessao, 7)
+    excecao = pytest.raises(
+        HTTPException,
+        restaurante_service.excluir,
+        sessao,
+        7,
+    )
 
     assert excecao.value.status_code == status.HTTP_409_CONFLICT
     assert excecao.value.detail == "Esse restaurante possui pedidos associados a ele"

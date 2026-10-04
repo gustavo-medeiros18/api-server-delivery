@@ -132,12 +132,13 @@ def test_alterar_rejeita_restaurante_inexistente(monkeypatch):
     )
     alterar_dao = Mock()
     monkeypatch.setattr(pedido_service.pedido_dao, "alterar", alterar_dao)
-    with pytest.raises(HTTPException) as excecao:
-        pedido_service.alterar(
-            sessao,
-            7,
-            PedidoAlteracaoSchema(id_restaurante=9),
-        )
+    excecao = pytest.raises(
+        HTTPException,
+        pedido_service.alterar,
+        sessao,
+        7,
+        PedidoAlteracaoSchema(id_restaurante=9),
+    )
 
     assert excecao.value.status_code == status.HTTP_404_NOT_FOUND
     assert excecao.value.detail == "Restaurante não encontrado"
