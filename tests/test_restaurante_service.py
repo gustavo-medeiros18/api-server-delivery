@@ -171,3 +171,35 @@ def test_alterar_restaurante_com_exito(monkeypatch):
         retorno_buscar_dao_simulado,
         {"nome": "Novo nome do restaurante", "rua": "Nova rua do restaurante"}
     )
+
+def test_alterar_restaurante_nao_encontrado(monkeypatch):
+    sessao_simulada = Mock()
+
+    retorno_dao_simulado = None
+    buscar_dao_simulado = Mock(return_value=retorno_dao_simulado)
+
+    monkeypatch.setattr(
+        restaurante_service.restaurante_dao,
+        "buscar_restaurante",
+        buscar_dao_simulado
+    )
+
+    alterar_dao_simulado = Mock()
+
+    monkeypatch.setattr(
+        restaurante_service.restaurante_dao,
+        "alterar",
+        alterar_dao_simulado
+    )
+
+    dados_entrada_exemplo = RestauranteAlteracaoSchema(nome="Novo nome do restaurante")
+
+    resultado = restaurante_service.alterar(
+        sessao_simulada,
+        7,
+        dados_entrada_exemplo
+    )
+
+    assert resultado == None
+    buscar_dao_simulado.assert_called_with(sessao_simulada, 7)
+    alterar_dao_simulado.assert_not_called()
